@@ -1,17 +1,26 @@
+import os
+from dotenv import load_dotenv
 import pymongo
 import mysql.connector
 import schedule
 import time
+
+load_dotenv()
+
+mysql_host = os.getenv("MYSQL_HOST")
+mysql_user = os.getenv("MYSQL_USER")
+mysql_password = os.getenv("MYSQL_PASSWORD")
+mysql_database = os.getenv("MYSQL_DATABASE")
 
 mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
 mongo_db = mongo_client["odeme_veritabani"]
 mongo_collection = mongo_db["odemeler"]
 
 mysql_connection = mysql.connector.connect(
-    host="localhost",
-    user="kullanici_adi",
-    password="parola",
-    database="mysql_veritabani"
+    host=mysql_host,
+    user=mysql_user,
+    password=mysql_password,
+    database=mysql_database
 )
 mysql_cursor = mysql_connection.cursor()
 
